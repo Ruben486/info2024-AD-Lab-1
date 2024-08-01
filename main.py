@@ -19,8 +19,8 @@ def menu_sistema():
     print(f"1- Agregar Producto Teléfono Móvil")
     print(f"2- Alta producto computadora")
     print(f"3- Buscar producto por Código")
-    print(f"4- Actualizar producto")
-    print(f"5- Baja producto a través de DNI")
+    print(f"4- Actualizar precio de producto")
+    print(f"5- Baja producto a través de Codigo")
     print(f"6- Mostrar todos los productos")
     print(f"9- Salir del sistema")
     print(f"")
@@ -72,7 +72,14 @@ def mostrar_productos(gestion):
         else:
             print(f"Telefono {producto["descripcion"]} -Precio:{producto["precio"]} -SO: {producto['sistema_operativo']} -Marca: {producto["marca"]} -Modelo: {producto["modelo"]}")
     print(f"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    input("Presione una tecla para continuar")             
+    input("Presione una tecla para continuar")   
+    
+def actualizar_precio_producto(gestion):
+    codigo = input(f"ingrese codigo de Producto: ")
+    precio = float(input(f"Ingrese nuevo precio del producto: "))
+    gestion.actualizar_producto(codigo,precio)
+    input("Presione una tecla para continuar ")   
+                  
     
 if __name__ == '__main__':
     archivo_producto = "productos.json"
@@ -86,9 +93,10 @@ if __name__ == '__main__':
             agregar_producto(gestion,opcion) 
         elif opcion == '3':
             buscar_producto_codigo(gestion)  
+        elif opcion == '4':
+            actualizar_precio_producto(gestion)    
         elif opcion == '6':
             mostrar_productos(gestion)
-                 
         elif opcion == '9':
             print(f"Fin del programa")
             break
