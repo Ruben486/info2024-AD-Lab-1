@@ -1,0 +1,31 @@
+{
+    "Telefono": {
+        "codigo": "Telefono",
+        "descripcion": "Telefono",
+        "rubro": "T",
+        "precio": 12.0,
+        "existencias": 1.0,
+        "sistema_operativo": "Andoid",
+        "marca": "samsung",
+        "modelo": "a6"
+    },
+    "124": {
+        "codigo": "124",
+        "descripcion": "Telefono",
+        "rubro": "T",
+        "precio": 15.0,
+        "existencias": 1.0,
+        "sistema_operativo": "Android",
+        "marca": "a6",
+        "modelo": "Samsung"
+    },
+    "145": {
+        "codigo": "145",
+        "descripcion": "Compu PC",
+        "rubro": "C",
+        "precio": 15.0,
+        "existencias": 1.0,
+        "sistema_operativo": "Windows",
+        "procesador": "Intel"
+    }
+}
