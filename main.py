@@ -22,6 +22,7 @@ def menu_sistema():
     print(f"4- Actualizar precio de producto")
     print(f"5- Baja producto a través de Codigo")
     print(f"6- Mostrar todos los productos")
+    print(f"7- Actualizar existencias de producto")
     print(f"9- Salir del sistema")
     print(f"")
     print(f"")
@@ -79,7 +80,17 @@ def actualizar_precio_producto(gestion):
     precio = float(input(f"Ingrese nuevo precio del producto: "))
     gestion.actualizar_producto(codigo,precio)
     input("Presione una tecla para continuar ")   
-                  
+    
+def baja_producto(gestion):
+    codigo = input(f"ingrese el codigo del producto a eliminar: ")
+    gestion.eliminar_producto(codigo)
+    input("Presione una tecla para continuar ")   
+    
+def actualizar_existencia_producto(gestion):
+    codigo = input(f"ingrese el codigo del producto a eliminar: ")
+    existencia = input(f"Ingrese nuevas existencias par el producto: ")
+    gestion.actualizar_stock_producto(codigo,existencia)
+    input("Presione una tecla para continuar ")                         
     
 if __name__ == '__main__':
     archivo_producto = "productos.json"
@@ -95,8 +106,12 @@ if __name__ == '__main__':
             buscar_producto_codigo(gestion)  
         elif opcion == '4':
             actualizar_precio_producto(gestion)    
+        elif opcion == '5':
+            baja_producto(gestion)    
         elif opcion == '6':
             mostrar_productos(gestion)
+        elif opcion == '7':
+            actualizar_existencia_producto(gestion)    
         elif opcion == '9':
             print(f"Fin del programa")
             break

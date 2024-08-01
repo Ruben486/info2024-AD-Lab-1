@@ -183,7 +183,6 @@ class GestionProductos:
             print(f"Se produjo el error {error} al intentar crear el producto")
                 
     def leer_producto(self,codigo):
-        
         try:
             datos = self.leer_datos()
             if codigo in datos:
@@ -206,6 +205,18 @@ class GestionProductos:
         except Exception as error:
             print(f"Error al intentar actualizar precio del producto con codigo {codigo}")                            
             
+    def actualizar_stock_producto(self,codigo,existencia):
+        try:
+            datos = self.leer_datos()
+            if str(codigo) in datos.keys():
+                datos[codigo]['existencias'] = existencia
+                self.guardar_datos(datos)
+                print(f"precio actualizado exitosamente producto {codigo}")
+            else:
+                print(f"no se econtro el producto con codigo {codigo}")    
+        except Exception as error:
+            print(f"Error al intentar actualizar precio del producto con codigo {codigo}")     
+                                           
     def eliminar_producto(self,codigo):
         try:
             datos = self.leer_datos()
