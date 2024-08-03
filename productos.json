@@ -11,11 +11,21 @@
     },
     "145": {
         "codigo": "145",
-        "descripcion": "Compu PC",
+        "descripcion": "Super PC",
         "rubro": "C",
-        "precio": 450.0,
-        "existencias": "15",
+        "precio": 1600.0,
+        "existencias": 2.0,
         "sistema_operativo": "Windows",
-        "procesador": "Intel"
+        "procesador": "Intel i7"
+    },
+    "a6": {
+        "codigo": "a6",
+        "descripcion": "Telefono celular Samsung a6+",
+        "rubro": "T",
+        "precio": 149.0,
+        "existencias": 1.0,
+        "sistema_operativo": "Android",
+        "marca": "Samsung",
+        "modelo": "a6*"
     }
 }

@@ -23,14 +23,41 @@ def menu_sistema():
     print(f"5- Baja producto a través de Codigo")
     print(f"6- Mostrar todos los productos")
     print(f"7- Actualizar existencias de producto")
+    print(f"8- Actualizar producto")
     print(f"9- Salir del sistema")
     print(f"")
     print(f"")
     print(f"---------------------------------------------------------")
     
+def pausa_display():    
+    input(f"Presione una tecla para continuar ->: ")
+    
+def entrada_de_datos(codigo,opcion_producto,operacion):
+    if operacion == "A":
+       codigo = input("Código del producto: ")
+
+    descripcion = input( "ingrese descripción: ")
+    rubro = input("Ingrese Rubro del producto: ")   
+    precio = input("Ingrese precio del producto: ")
+    existencias = input("Ingrese existencia del producto: ")
+        
+    if opcion_producto == '1':
+        so = input("Ingrese SO del producto: ")
+        marca = input("Ingrese marca del producto: ")
+        modelo = input("Ingrese modelo del producto: ")
+        producto = ProductoCelular(codigo,descripcion,rubro,precio,existencias,so,marca,modelo)
+        
+            
+    elif opcion_producto == '2':
+        so = input("Ingrese SO del computador:")
+        procesador = input("Ingrese Procesador del computador:")
+        producto = ProductoComputadora(codigo,descripcion,rubro,precio,existencias,so,procesador)    
+    return producto        
+
 def agregar_producto(gestion,opcion_producto):
     try:
-        codigo = input("Código del producto:")
+        producto = entrada_de_datos('',opcion_producto,'A')
+        """     codigo = input("Código del producto:")
         descripcion = input("Ingrese descripción del producto:")
         rubro = input("Ingrese Rubro del producto:")
         precio = input("Ingrese precio del producto:")
@@ -49,48 +76,90 @@ def agregar_producto(gestion,opcion_producto):
         else:
             print(f"opción inválida")
             input("presione enter para continuar")
-            
+        """        
         gestion.crear_producto(producto)
-    
+        print(f"Alta de producto ejecutada exitosamente")
+        pausa_display()
+        
     except ValueError as error:
         print(f"Ha sucedido un error: {error}")
     except Exception as error:
         print(f"Se produjo el siguiente error: {error}")    
     finally:
-        input(f"presione una tecla para continuar")    
+        pausa_display()
         
+def actualizar_producto(gestion):        
+    try:
+        codigo = input(f"ingrese el código del producto a actualizar: ")
+        producto = gestion.leer_producto(codigo)
+        if "procesador" in producto:
+            print(f"El producto es una computadora")
+            producto = entrada_de_datos(codigo,"2","M")
+        elif "marca" in producto:
+            print(f"el producto es un móvil")    
+            producto = entrada_de_datos(codigo,"1","M")
+        
+        continuar = input(f"Presione Enter para continuar, c-para cancelar: ")
+        if continuar == 'c':
+            print(f"Se canceló la modificación del producto")
+        else:
+            print(f"{codigo}")
+            gestion.actualizar_producto(codigo,producto)
+            print(f"Alta de producto ejecutada exitosamente")
+    except Exception as error:
+        print(f"Se ha producido un error durante la actualizacion {error}")     
+        
+    pausa_display()
+    
 def buscar_producto_codigo(gestion):
     codigo = input(f"Ingrese código a buscar:")
     gestion.leer_producto(codigo)
-    input(f"presione una tecla para continuar")
+    pausa_display()
     
+def mostrar_datos_comunes(producto):
+    print(f"-Descripción: {producto['descripcion']} -Precio: {producto["precio"]} -Existencias: {producto['existencias']} -SO: {producto["sistema_operativo"]}")
+        
 def mostrar_productos(gestion):
     print(f"Listado de Productos existentes")
     print(f"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     for producto in gestion.leer_datos().values():
         if "procesador" in producto:
-            print(f"Computadora: {producto['descripcion']} -SO: {producto["sistema_operativo"]} - Procesador: {producto["procesador"]}")
+            print(f"Computadora: -Código: {producto["codigo"]}")
+            mostrar_datos_comunes(producto)      
+            print(f"-Procesador: {producto["procesador"]} \n")
         else:
-            print(f"Telefono {producto["descripcion"]} -Precio:{producto["precio"]} -SO: {producto['sistema_operativo']} -Marca: {producto["marca"]} -Modelo: {producto["modelo"]}")
+            print(f"Teléfono -Codigo: {producto["codigo"]}")
+            mostrar_datos_comunes(producto)
+            print(f"-Marca: {producto["marca"]} \n-Modelo: {producto["modelo"]} \n")
     print(f"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    input("Presione una tecla para continuar")   
+    pausa_display()
     
 def actualizar_precio_producto(gestion):
     codigo = input(f"ingrese codigo de Producto: ")
-    precio = float(input(f"Ingrese nuevo precio del producto: "))
-    gestion.actualizar_producto(codigo,precio)
-    input("Presione una tecla para continuar ")   
+    producto = gestion.leer_producto(codigo)
+    if "codigo" in producto:
+        precio = float(input(f"Ingrese nuevo precio del producto: "))
+        gestion.actualizar_precio_producto(codigo,precio)
+        print(f"Se ha actualizado el precio del producto")
+    else:
+        print(f"El código ingresado no existe")  
+    pausa_display()
     
 def baja_producto(gestion):
     codigo = input(f"ingrese el codigo del producto a eliminar: ")
     gestion.eliminar_producto(codigo)
-    input("Presione una tecla para continuar ")   
+    pausa_display()
     
 def actualizar_existencia_producto(gestion):
-    codigo = input(f"ingrese el codigo del producto a eliminar: ")
-    existencia = input(f"Ingrese nuevas existencias par el producto: ")
-    gestion.actualizar_stock_producto(codigo,existencia)
-    input("Presione una tecla para continuar ")                         
+    codigo = input(f"ingrese el codigo del producto a actualizar: ")
+    producto = gestion.leer_producto(codigo) 
+    if "codigo" in producto:
+       existencia = input(f"Ingrese nuevas existencias del producto: ")  
+       gestion.actualizar_stock_producto(codigo,existencia)
+       print(f"Existencia de producto actualizado exitosamente")
+    else:
+       print(f"El codigo ingresado no existe")   
+    pausa_display()
     
 if __name__ == '__main__':
     archivo_producto = "productos.json"
@@ -111,10 +180,12 @@ if __name__ == '__main__':
         elif opcion == '6':
             mostrar_productos(gestion)
         elif opcion == '7':
-            actualizar_existencia_producto(gestion)    
+            actualizar_existencia_producto(gestion)   
+        elif opcion == '8':
+            actualizar_producto(gestion)     
         elif opcion == '9':
             print(f"Fin del programa")
             break
         else:
             print(f"Opción inexistente. Seleccione una opción válida")
-            input("presione enter para continuar")
+            pausa_display()

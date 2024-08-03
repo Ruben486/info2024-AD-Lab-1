@@ -123,8 +123,6 @@ class ProductoComputadora(Producto):
     def procesador(self):
         return self.__procesador
     
-    
-    
     def to_dict(self):
         """ return {
             "codigo": self.codigo,
@@ -151,8 +149,7 @@ class GestionProductos:
     def leer_datos(self):
         try:
             with open(self.archivo, 'r') as file:
-              datos = json.load(file)
-                        
+              datos = json.load(file)  
         except FileNotFoundError:    
             return {}
         except Exception as error:
@@ -187,13 +184,27 @@ class GestionProductos:
             datos = self.leer_datos()
             if codigo in datos:
                 producto_data = datos[codigo]
-                print(f"Producto encontrado: {producto_data}")      
+                print(f"Producto encontrado: {producto_data}")   
+                return producto_data   
             else:
-                print(f"Producto No encontrado, codigo Solicitado {codigo}")    
+                print(f"Producto No encontrado, codigo Solicitado {codigo}")  
+                return {} 
         except Exception as error:
             print(f"Error al leer datos {error } producto: {codigo}")
             
-    def actualizar_producto(self,codigo,n_precio):
+    def actualizar_producto(self,codigo,producto):
+        try:
+            datos = self.leer_datos()
+            if str(codigo) in datos.keys():
+                datos[codigo]= producto.to_dict()
+                self.guardar_datos(datos)
+                print(f"precio actualizado exitosamente producto {codigo}")
+            else:
+                print(f"no se econtro el producto con codigo {codigo}")    
+        except Exception as error:
+            print(f"Error al intentar actualizar precio del producto con codigo {codigo}")                            
+            
+    def actualizar_precio_producto(self,codigo,n_precio):
         try:
             datos = self.leer_datos()
             if str(codigo) in datos.keys():
