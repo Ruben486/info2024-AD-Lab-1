@@ -27,5 +27,24 @@
         "sistema_operativo": "Android",
         "marca": "Samsung",
         "modelo": "a6*"
+    },
+    "640": {
+        "codigo": "640",
+        "descripcion": "Telefono Samsung",
+        "rubro": "T",
+        "precio": 14.0,
+        "existencias": 2.0,
+        "sistema_operativo": "android",
+        "marca": "Samsung",
+        "modelo": "j7"
+    },
+    "750": {
+        "codigo": "750",
+        "descripcion": "PC de juegos",
+        "rubro": "C",
+        "precio": 65.0,
+        "existencias": 2.0,
+        "sistema_operativo": "WIndows",
+        "procesador": "Intel i5"
     }
 }

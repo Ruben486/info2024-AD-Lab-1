@@ -198,7 +198,6 @@ class GestionProductos:
             if str(codigo) in datos.keys():
                 datos[codigo]= producto.to_dict()
                 self.guardar_datos(datos)
-                print(f"precio actualizado exitosamente producto {codigo}")
             else:
                 print(f"no se econtro el producto con codigo {codigo}")    
         except Exception as error:

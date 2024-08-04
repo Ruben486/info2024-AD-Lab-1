@@ -79,7 +79,6 @@ def agregar_producto(gestion,opcion_producto):
         """        
         gestion.crear_producto(producto)
         print(f"Alta de producto ejecutada exitosamente")
-        pausa_display()
         
     except ValueError as error:
         print(f"Ha sucedido un error: {error}")
@@ -105,10 +104,9 @@ def actualizar_producto(gestion):
         else:
             print(f"{codigo}")
             gestion.actualizar_producto(codigo,producto)
-            print(f"Alta de producto ejecutada exitosamente")
+            print(f"Actualización de producto exitosa")
     except Exception as error:
         print(f"Se ha producido un error durante la actualizacion {error}")     
-        
     pausa_display()
     
 def buscar_producto_codigo(gestion):
